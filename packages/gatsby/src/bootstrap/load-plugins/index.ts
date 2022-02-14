@@ -5,7 +5,7 @@ import { IGatsbyState } from "../../redux/types"
 import * as nodeAPIs from "../../utils/api-node-docs"
 import * as browserAPIs from "../../utils/api-browser-docs"
 import ssrAPIs from "../../../cache-dir/api-ssr-docs"
-import { loadPlugins as loadPluginsInternal } from "./load"
+import { loadInternalPlugins } from "./load-internal-plugins"
 import {
   collatePluginAPIs,
   handleBadExports,
@@ -115,7 +115,7 @@ export async function loadPlugins(
   })
 
   // Collate internal plugins, site config plugins, site default plugins
-  const pluginInfos = loadPluginsInternal(config, rootDir)
+  const pluginInfos = await loadInternalPlugins(config, rootDir)
 
   // Create a flattened array of the plugins
   const pluginArray = flattenPlugins(pluginInfos)

@@ -173,13 +173,15 @@ export async function initialize({
   )
   activity.start()
 
-  const compiledDirectory = `${program.directory}/${COMPILED_CACHE_DIR}`
+  const siteDirectory = program.directory
+  const compiledDirectory = `${siteDirectory}/${COMPILED_CACHE_DIR}`
 
+  // Compile gatsby-* files in site root
   await fs.ensureDir(compiledDirectory)
-  await compileGatsbyFiles(program.directory)
+  await compileGatsbyFiles(siteDirectory)
 
   const { config, flattenedPlugins } = await loadConfigAndPlugins({
-    siteDirectory: program.directory,
+    siteDirectory,
     processFlags: true,
   })
 
